@@ -3,8 +3,9 @@ const passport = require('passport');
 const session = require('express-session');
 const DiscordStrategy = require('passport-discord').Strategy;
 const mongoose = require('mongoose');
+require('dotenv').config();
 // Conectar a la base de datos
-mongoose.connect('mongodb+srv://bfw:lecheygalletas@verificationcluster.k7q2z2b.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -20,8 +21,8 @@ const User = mongoose.model('User', new mongoose.Schema({
 }));
 const app = express();
 
-const clientId = '1092496842601803846';
-const clientSecret = 'Xk9lOtbqmAwDYFD09lRPkXuFaCHwfBaV';
+const clientId = process.env.clientID;
+const clientSecret = process.env.clientSecret;
 const scopes = ['identify'];
 
 app.use(session({
